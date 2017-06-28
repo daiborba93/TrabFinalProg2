@@ -1,0 +1,187 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.22
+-- Dumped by pg_dump version 9.1.22
+-- Started on 2016-12-01 22:58:24
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 1 (class 3079 OID 11639)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 1873 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 164 (class 1259 OID 41002)
+-- Dependencies: 6
+-- Name: cidade; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cidade (
+    nome character varying(50),
+    codigo integer NOT NULL
+);
+
+
+ALTER TABLE public.cidade OWNER TO postgres;
+
+--
+-- TOC entry 162 (class 1259 OID 40996)
+-- Dependencies: 6
+-- Name: equipamento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE equipamento (
+    nome character varying(50),
+    codigo integer NOT NULL
+);
+
+
+ALTER TABLE public.equipamento OWNER TO postgres;
+
+--
+-- TOC entry 163 (class 1259 OID 40999)
+-- Dependencies: 6
+-- Name: pedido; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE pedido (
+    nome character varying(50),
+    cpf character varying(50),
+    rua character varying(50),
+    numero character varying(10),
+    descricao character varying(99),
+    equipamento integer,
+    cidade integer,
+    codigo integer NOT NULL
+);
+
+
+ALTER TABLE public.pedido OWNER TO postgres;
+
+--
+-- TOC entry 1865 (class 0 OID 41002)
+-- Dependencies: 164 1866
+-- Data for Name: cidade; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cidade (nome, codigo) FROM stdin;
+teste	1
+\.
+
+
+--
+-- TOC entry 1863 (class 0 OID 40996)
+-- Dependencies: 162 1866
+-- Data for Name: equipamento; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY equipamento (nome, codigo) FROM stdin;
+dddd	2
+ddd	3
+teste	1
+\.
+
+
+--
+-- TOC entry 1864 (class 0 OID 40999)
+-- Dependencies: 163 1866
+-- Data for Name: pedido; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY pedido (nome, cpf, rua, numero, descricao, equipamento, cidade, codigo) FROM stdin;
+\.
+
+
+--
+-- TOC entry 1759 (class 2606 OID 41006)
+-- Dependencies: 164 164 1867
+-- Name: cidade_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cidade
+    ADD CONSTRAINT cidade_pkey PRIMARY KEY (codigo);
+
+
+--
+-- TOC entry 1755 (class 2606 OID 41021)
+-- Dependencies: 162 162 1867
+-- Name: equipamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY equipamento
+    ADD CONSTRAINT equipamento_pkey PRIMARY KEY (codigo);
+
+
+--
+-- TOC entry 1757 (class 2606 OID 41023)
+-- Dependencies: 163 163 1867
+-- Name: pedido_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY pedido
+    ADD CONSTRAINT pedido_pkey PRIMARY KEY (codigo);
+
+
+--
+-- TOC entry 1760 (class 2606 OID 41010)
+-- Dependencies: 163 164 1758 1867
+-- Name: fk_pedido_cidade; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY pedido
+    ADD CONSTRAINT fk_pedido_cidade FOREIGN KEY (cidade) REFERENCES cidade(codigo);
+
+
+--
+-- TOC entry 1761 (class 2606 OID 41024)
+-- Dependencies: 162 1754 163 1867
+-- Name: fk_pedido_equipamento; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY pedido
+    ADD CONSTRAINT fk_pedido_equipamento FOREIGN KEY (equipamento) REFERENCES equipamento(codigo);
+
+
+--
+-- TOC entry 1872 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2016-12-01 22:58:25
+
+--
+-- PostgreSQL database dump complete
+--
+
